@@ -46,9 +46,15 @@ app.get('/pokemon', function(req, res) {
 
 //show route
 app.get('/:id', (req,res)=>{
-
-  let pokemonId = req.params.id
-  
+  const pokemonUrl = `http://pokeapi.co/api/v2/pokemon/${req.params.id}`
+  axios.get(pokemonUrl)
+  .then(response=>{
+    res.render('show', {pokemon: response.data})
+    console.log(response.data)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
 })
 
 // Imports all routes from the pokemon routes file
